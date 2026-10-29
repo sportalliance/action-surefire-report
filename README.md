@@ -2,6 +2,27 @@
 
 ![](https://github.com/scacap/action-surefire-report/workflows/build/badge.svg)
 
+## ⚠️ Fully deprecated
+
+> [!WARNING]
+> `ScaCap/action-surefire-report@v1` is fully deprecated and is no longer supported. It will receive no further updates or fixes.
+> Use [`ScalableCapital/action-surefire-report@v2`](https://github.com/ScalableCapital/action-surefire-report) instead.
+
+Replace:
+
+```yml
+uses: ScaCap/action-surefire-report@v1
+```
+
+With:
+
+```yml
+uses: ScalableCapital/action-surefire-report@v2
+```
+
+The active release line, documentation, and ongoing maintenance live in the [`ScalableCapital` repository](https://github.com/ScalableCapital/action-surefire-report).
+
+---
 
 This action processes maven surefire or failsafe XML reports on pull requests and shows the result as a PR check with summary and annotations.
 
@@ -53,6 +74,9 @@ Optional. Set to `true` to get the file name from the stack trace. The default i
 
 Optional: If you use GitHub Enterprise, you can set this to the URL of your server (e.g. https://github.myorg.com/api/v3).
 
+### `custom_summary`
+
+Optional: Custom summary text to display in the workflow run output. Useful when generating reports in a separate workflow and linking back to the original test execution. Markdown is supported.
 
 ## Example usage
 

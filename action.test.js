@@ -90,6 +90,20 @@ describe('action should work', () => {
         expect(failed).toBeNull();
     });
 
+    it('should emit a full deprecation warning for the legacy v1 action line', async () => {
+        const scope = nock('https://api.github.com')
+            .post('/repos/scacap/action-surefire-report/check-runs')
+            .reply(200, {});
+
+        await action();
+        scope.done();
+
+        expect(core.warning).toHaveBeenCalledWith(
+            'Fully deprecated: ScaCap/action-surefire-report@v1 is no longer supported and will receive no further updates. ' +
+            'Move to ScalableCapital/action-surefire-report@v2: https://github.com/ScalableCapital/action-surefire-report.'
+        );
+    });
+
     it('should send all ok if no tests were broken', async () => {
         inputs.report_paths = '**/surefire-reports/TEST-*AllOkTest.xml';
         let request = null;

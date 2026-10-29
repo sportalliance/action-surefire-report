@@ -13,6 +13,11 @@ const { parseTestReports } = __nccwpck_require__(4561);
 
 
 const action = async () => {
+    core.warning(
+        'Fully deprecated: ScaCap/action-surefire-report@v1 is no longer supported and will receive no further updates. ' +
+        'Move to ScalableCapital/action-surefire-report@v2: https://github.com/ScalableCapital/action-surefire-report.'
+    );
+
     const reportPaths = core.getInput('report_paths').split(',').join('\n');
     core.info(`Going to parse results form ${reportPaths}`);
     const githubToken = core.getInput('github_token');
@@ -25,6 +30,7 @@ const action = async () => {
     const skipPublishing = core.getInput('skip_publishing') === 'true';
     const isFilenameInStackTrace = core.getInput('file_name_in_stack_trace') === 'true';
     const githubBaseUrl = core.getInput('github_base_url');
+    const customSummary = core.getInput('custom_summary');
 
     let { count, skipped, annotations } = await parseTestReports(reportPaths, isFilenameInStackTrace, ignoreFlakyTests);
     const foundResults = count > 0 || skipped > 0;
@@ -65,7 +71,7 @@ const action = async () => {
                 conclusion,
                 output: {
                     title,
-                    summary: '',
+                    summary: customSummary || '',
                     annotations: annotations.slice(0, 50)
                 }
             };
